@@ -11,5 +11,5 @@ public class VeterinaryReport {
     public void displayStatistics() {
         System.out.println("Total number of animals is " + getAnimalsCount());
     }
-    //Y
+    //a
 }
