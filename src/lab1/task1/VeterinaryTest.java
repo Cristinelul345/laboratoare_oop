@@ -9,5 +9,6 @@ public class VeterinaryTest {
 
         vr.displayStatistics();
         System.out.println("The class method says there are " + vr.getAnimalsCount() + " animals");
+        //Thanks for help!
     }
 }
