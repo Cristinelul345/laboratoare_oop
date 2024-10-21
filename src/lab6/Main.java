@@ -111,6 +111,7 @@ class Dealership {
             return 0;
         }
     }
+    //change
 
     class DealerOffer implements Offer {
         @Override
