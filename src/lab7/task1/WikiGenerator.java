@@ -17,11 +17,19 @@ public class WikiGenerator {
 
     public StringBuilder getDokuWikiDocument() {
         // TODO apply dokuwiki visitor on the text segments
-        return null;
+        DokuwikiVisitor visitor = new DokuwikiVisitor();
+        for (TextSegment segment : textSegments) {
+            segment.accept(visitor);
+        }
+        return visitor.getDocument();
     }
 
     public StringBuilder getMarkdownDocument() {
         // TODO apply Markdown visitor on the text segments
-        return null;
+        MarkdownVisitor visitor = new MarkdownVisitor();
+        for (TextSegment segment : textSegments) {
+            segment.accept(visitor);
+        }
+        return visitor.getDocument();
     }
 }

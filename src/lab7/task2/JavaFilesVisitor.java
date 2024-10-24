@@ -2,6 +2,7 @@ package lab7.task2;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 
 /**
@@ -9,30 +10,44 @@ import java.util.ArrayList;
  */
 public class JavaFilesVisitor extends SimpleFileVisitor<Path> {
 
-    private ArrayList<Path> javaFiles;
+    private ArrayList<Path> javaFiles = new ArrayList<>();
 
-    public final ArrayList<Path> getJavaFiles() {
+    public ArrayList<Path> getJavaFiles() {
         return javaFiles;
     }
 
     /**
-     * TODO - override the visitFile(Path file, BasicFileAttributes attr) method of the SimpleFileVisitor.
-     * Add to javaFiles all the Java related files: the ones with .java and .class extensions.
+     * Override the visitFile method to find all .java and .class files
      */
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+        // Check if the file has a .java or .class extension
+        if (file.toString().endsWith(".java") || file.toString().endsWith(".class")) {
+            javaFiles.add(file); // Add the file to the list
+        }
+        return FileVisitResult.CONTINUE; // Continue walking the file tree
+    }
+
     public static void main(String[] args) {
 
         Path startingDir = Paths.get("./src/lab7");
         JavaFilesVisitor filesVisitor = new JavaFilesVisitor();
 
         /*
-         * The walkFileTree methods does a depth-first traversal of a directory, starting from startingDir.
+         * The walkFileTree method does a depth-first traversal of a directory, starting from startingDir.
          * When it reaches a file, the visitFile method is invoked on the currently visited file.
          */
         try {
             Files.walkFileTree(startingDir, filesVisitor);
             ArrayList<Path> javaFiles = filesVisitor.getJavaFiles();
 
-            // TODO: Print the number of files visited and their names
+            // Print the number of files visited
+            System.out.println("Number of Java-related files: " + javaFiles.size());
+
+            // Print the names of the files visited
+            for (Path file : javaFiles) {
+                System.out.println(file.getFileName());
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

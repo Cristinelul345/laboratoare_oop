@@ -1,12 +1,11 @@
 package lab7.task1.document;
 
-/**
- * Represents a text segment of a document that needs to be parsed.
- */
+import lab7.task1.DocumentVisitor;
+
 public abstract class TextSegment {
     private String content;
 
-    TextSegment(String content) {
+    public TextSegment(String content) {
         this.content = content;
     }
 
@@ -14,5 +13,5 @@ public abstract class TextSegment {
         return content;
     }
 
-    // TODO add method for applying the visitor
+    public abstract void accept(DocumentVisitor visitor);
 }
